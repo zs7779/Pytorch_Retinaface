@@ -4,13 +4,13 @@ import argparse
 import torch
 import torch.backends.cudnn as cudnn
 import numpy as np
-from data import cfg_mnet, cfg_re50
+from retina_data import cfg_mnet, cfg_re50
 from layers.functions.prior_box import PriorBox
-from utils.nms.py_cpu_nms import py_cpu_nms
+from retina_utils.nms.py_cpu_nms import py_cpu_nms
 import cv2
-from models.retinaface import RetinaFace
-from utils.box_utils import decode, decode_landm
-from utils.timer import Timer
+from retina_models.retinaface import RetinaFace
+from retina_utils.box_utils import decode, decode_landm
+from retina_utils.timer import Timer
 
 parser = argparse.ArgumentParser(description='Retinaface')
 
@@ -89,8 +89,8 @@ if __name__ == '__main__':
     fw = open(os.path.join(args.save_folder, args.dataset + '_dets.txt'), 'w')
 
     # testing dataset
-    testset_folder = os.path.join('data', args.dataset, 'images/')
-    testset_list = os.path.join('data', args.dataset, 'img_list.txt')
+    testset_folder = os.path.join('retina_data', args.dataset, 'images/')
+    testset_list = os.path.join('retina_data', args.dataset, 'img_list.txt')
     with open(testset_list, 'r') as fr:
         test_dataset = fr.read().split()
     num_images = len(test_dataset)
