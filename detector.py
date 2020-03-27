@@ -68,8 +68,9 @@ class RetinaFaceNet:
         model.load_state_dict(pretrained_dict, strict=False)
         return model
 
-    def detect(self, img, _):
+    def detect(self, img, *_):
         # testing scale
+        img = img.astype(np.float32)
         target_size = 1600
         max_size = 2150
         im_shape = img.shape
@@ -136,7 +137,7 @@ class RetinaFaceNet:
         # dets = dets[:args.keep_top_k, :]
         # landms = landms[:args.keep_top_k, :]
 
-        dets = np.concatenate((dets, landms), axis=1)
+        #dets = np.concatenate((dets, landms), axis=1)
         self._t['misc'].toc()
-        return landms
+        return dets
 
